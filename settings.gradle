@@ -1,0 +1,3 @@
+rootProject.name='Huawei Push Kotlin'
+include ':push'
+include ':core'

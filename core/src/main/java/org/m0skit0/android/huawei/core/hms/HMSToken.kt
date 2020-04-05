@@ -1,7 +1,6 @@
 package org.m0skit0.android.huawei.core.hms
 
 import arrow.core.Either
-import arrow.core.Option
 import com.huawei.hms.aaid.HmsInstanceId
 import org.m0skit0.android.huawei.core.di.AGCModuleProvider.NAMED_HUAWEI_APP_ID
 import org.m0skit0.android.huawei.core.utils.koin
@@ -27,11 +26,11 @@ suspend fun huaweiHMSToken(type: String): String =
 suspend fun huaweiHMSTokenMaybe(type: String): Either<Throwable, String> =
     Either.catch { huaweiHMSToken(type) }
 
-suspend fun huaweiDeregisterHMSToken(token: String, type: String) {
+suspend fun huaweiDeregisterHMSToken(token: String, type: String): String =
     withMainContext {
         koin().get<HmsInstanceId>().deleteToken(token, type)
+        token
     }
-}
 
-suspend fun huaweiDeregisterHMSTokenMaybe(token: String, type: String): Option<Throwable> =
-    Either.catch { huaweiDeregisterHMSToken(token, type) }.swap().toOption()
+suspend fun huaweiDeregisterHMSTokenMaybe(token: String, type: String): Either<Throwable, String> =
+    Either.catch { huaweiDeregisterHMSToken(token, type) }

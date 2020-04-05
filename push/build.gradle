@@ -15,16 +15,8 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-
     implementation project(':core')
     implementation 'com.huawei.hms:push:4.0.0.300'
-
-    implementation 'org.koin:koin-android:2.1.5'
-    implementation 'io.arrow-kt:arrow-fx:0.10.4'
 
     testImplementation 'junit:junit:4.12'
 }

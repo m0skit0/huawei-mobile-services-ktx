@@ -12,6 +12,13 @@ android {
         versionCode 1
         versionName "$hmsVersion-1"
     }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "HUAWEI_OPENID_CONFIGURATION_URL", '"https://oauth-login.cloud.huawei.com/.well-known/openid-configuration"'
+            buildConfigField "String", "HUAWEI_ISSUER", '"https://accounts.huawei.com"'
+        }
+    }
 }
 
 dependencies {

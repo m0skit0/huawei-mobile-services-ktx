@@ -1,10 +1,11 @@
 package org.m0skit0.android.huawei.core.hms
 
 import arrow.core.Either
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.m0skit0.android.huawei.core.di.HMSModuleProvider.NAMED_HUAWEI_TOKEN
+import arrow.core.Option
+import com.huawei.hms.aaid.HmsInstanceId
+import org.m0skit0.android.huawei.core.di.AGCModuleProvider.NAMED_HUAWEI_APP_ID
 import org.m0skit0.android.huawei.core.di.koin
+import org.m0skit0.android.huawei.core.utils.withMainContext
 
 /**
  * For now this only supports EMUI 10.0 or higher.
@@ -12,8 +13,10 @@ import org.m0skit0.android.huawei.core.di.koin
  * See https://developer.huawei.com/consumer/en/doc/development/HMS-Guides/push-basic-capability
  */
 suspend fun huaweiHMSToken(type: String): String =
-    withContext(Dispatchers.Main) {
-        koin().get<(String) -> String>(NAMED_HUAWEI_TOKEN)(type)
+    withMainContext {
+        koin().run {
+            get<HmsInstanceId>().getToken(get(NAMED_HUAWEI_APP_ID), type)
+        }
     }
 
 /**
@@ -23,3 +26,12 @@ suspend fun huaweiHMSToken(type: String): String =
  */
 suspend fun huaweiHMSTokenMaybe(type: String): Either<Throwable, String> =
     Either.catch { huaweiHMSToken(type) }
+
+suspend fun huaweiDeregisterHMSToken(token: String, type: String) {
+    withMainContext {
+        koin().get<HmsInstanceId>().deleteToken(token, type)
+    }
+}
+
+suspend fun huaweiDeregisterHMSTokenMaybe(token: String, type: String): Option<Throwable> =
+    Either.catch { huaweiDeregisterHMSToken(token, type) }.swap().toOption()

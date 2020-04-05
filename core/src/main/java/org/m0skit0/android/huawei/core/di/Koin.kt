@@ -4,8 +4,6 @@ import android.app.Application
 import arrow.core.Either
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.Koin
-import org.koin.core.context.KoinContextHandler
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 
@@ -24,5 +22,3 @@ internal fun Application.loadKoin() {
         }
     }
 }
-
-internal fun koin(): Koin = KoinContextHandler.get()

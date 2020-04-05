@@ -4,7 +4,7 @@ import arrow.core.Either
 import arrow.core.Option
 import com.huawei.hms.aaid.HmsInstanceId
 import org.m0skit0.android.huawei.core.di.AGCModuleProvider.NAMED_HUAWEI_APP_ID
-import org.m0skit0.android.huawei.core.di.koin
+import org.m0skit0.android.huawei.core.utils.koin
 import org.m0skit0.android.huawei.core.utils.withMainContext
 
 /**

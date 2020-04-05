@@ -1,7 +1,6 @@
 package org.m0skit0.android.huawei.account
 
 import arrow.core.Either
-import arrow.core.Option
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitObject
 import io.jsonwebtoken.Jwts
@@ -25,7 +24,9 @@ private suspend fun publicKeyMaybe(url: String): Either<Throwable, JWTCertificat
             .keys[0]
     }
 
-private suspend fun String.verifySignature(key: JWTCertificateKey): Option<Throwable> =
+private suspend fun String.verifySignature(key: JWTCertificateKey): Either<Throwable, String> =
     Either.catch {
-        Jwts.parserBuilder().setSigningKey(key.n).build().parseClaimsJwt(this)
-    }.swap().toOption()
+        apply {
+            Jwts.parserBuilder().setSigningKey(key.n).build().parseClaimsJwt(this)
+        }
+    }

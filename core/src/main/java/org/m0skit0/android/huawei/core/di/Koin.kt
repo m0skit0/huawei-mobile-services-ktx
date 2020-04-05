@@ -7,7 +7,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 
-private val modules = listOf(
+private val modules = listOf<KoinModuleProvider>(
     AGCModuleProvider,
     HMSModuleProvider
 ).map { it.module() }

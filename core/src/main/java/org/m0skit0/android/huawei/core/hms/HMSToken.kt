@@ -14,7 +14,7 @@ import org.m0skit0.android.huawei.core.utils.withMainContext
  */
 suspend fun huaweiHMSToken(type: String): String =
     withMainContext {
-        koin().run {
+        with(koin()) {
             get<HmsInstanceId>().getToken(get(NAMED_HUAWEI_APP_ID), type)
         }
     }

@@ -5,7 +5,7 @@ import org.koin.core.context.loadKoinModules
 import org.m0skit0.android.huawei.core.di.KoinModuleProvider
 
 private val modules = listOf<KoinModuleProvider>(
-    HMSModule
+    HMSModuleProvider
 ).map { it.module() }
 
 internal fun Application.loadKoin() {

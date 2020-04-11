@@ -23,7 +23,7 @@ suspend fun huaweiDeregisterPushTokenMaybe(token: String): Either<Throwable, Str
 suspend fun huaweiTurnOnPush(): Unit =
     koin().get<HmsMessaging>().turnOnPush().suspendCoroutineUntilCompletion().toUnit()
 
-suspend fun huaweriTurnOnPushMaybe(): Either<Throwable, Unit> = Either.catch { huaweiTurnOnPush() }
+suspend fun huaweiTurnOnPushMaybe(): Either<Throwable, Unit> = Either.catch { huaweiTurnOnPush() }
 
 suspend fun huaweiTurnOffPush(): Unit =
     koin().get<HmsMessaging>().turnOffPush().suspendCoroutineUntilCompletion().toUnit()

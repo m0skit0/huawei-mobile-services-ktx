@@ -10,6 +10,9 @@ import com.huawei.hms.support.hwid.service.HuaweiIdAuthService
 import org.m0skit0.android.huawei.account.di.AuthModuleProvider.NAMED_AUTH_SERVICE
 import org.m0skit0.android.huawei.core.utils.koin
 import org.m0skit0.android.huawei.core.utils.suspendCoroutineUntilCompletion
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 fun huaweiSignInIntent(): Intent =
     with(koin()) {
@@ -21,7 +24,8 @@ fun huaweiSignInIntent(): Intent =
             }
     }
 
-suspend fun huaweiSignInIntentMaybe(): Either<Throwable, Intent> = Either.catch { huaweiSignInIntent() }
+suspend fun huaweiSignInIntentMaybe(): Either<Throwable, Intent> =
+    Either.catch { huaweiSignInIntent() }
 
 fun huaweiSignInIntentWithCode(): Intent =
     with(koin()) {
@@ -59,3 +63,24 @@ fun huaweiSignOut() {
 }
 
 suspend fun huaweiSignOutMaybe(): Either<Throwable, Unit> = Either.catch { huaweiSignOut() }
+
+suspend fun huaweiSilentSignIn(): AuthHuaweiId =
+    with(koin()) {
+        get<HuaweiIdAuthParamsHelper>()
+            .createParams()
+            .let { params ->
+                get<(HuaweiIdAuthParams) -> HuaweiIdAuthService>(NAMED_AUTH_SERVICE)
+                    .invoke(params)
+                    .silentSignIn().let { task ->
+                        suspendCoroutine { continuation ->
+                            task.addOnSuccessListener {
+                                continuation.resume(it)
+                            }.addOnFailureListener {
+                                continuation.resumeWithException(it)
+                            }
+                        }
+                    }
+            }
+    }
+
+suspend fun huaweiSilentSignInMaybe(): Either<Throwable, AuthHuaweiId> = Either.catch { huaweiSilentSignIn() }

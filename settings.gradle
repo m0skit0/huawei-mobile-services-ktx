@@ -1,4 +1,4 @@
-rootProject.name='Huawei Push Kotlin'
+rootProject.name='Huawei Mobile Services Kotlin'
 include ':push'
 include ':core'
 include ':account'

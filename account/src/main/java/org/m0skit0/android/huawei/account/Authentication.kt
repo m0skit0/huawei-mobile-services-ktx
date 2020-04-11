@@ -21,8 +21,41 @@ fun huaweiSignInIntent(): Intent =
             }
     }
 
+suspend fun huaweiSignInIntentMaybe(): Either<Throwable, Intent> = Either.catch { huaweiSignInIntent() }
+
+fun huaweiSignInIntentWithCode(): Intent =
+    with(koin()) {
+        get<HuaweiIdAuthParamsHelper>()
+            .setAuthorizationCode()
+            .createParams()
+            .let { params ->
+                get<(HuaweiIdAuthParams) -> HuaweiIdAuthService>(NAMED_AUTH_SERVICE)(params).signInIntent
+            }
+    }
+
+suspend fun huaweiSignInIntentWithCodeMaybe(): Either<Throwable, Intent> =
+    Either.catch { huaweiSignInIntentWithCode() }
+
 suspend fun Intent.huaweiParseAuthenticationResult(): AuthHuaweiId =
     HuaweiIdAuthManager.parseAuthResultFromIntent(this).suspendCoroutineUntilCompletion()
 
 suspend fun Intent.huaweiParseAuthenticationResultMaybe(): Either<Throwable, AuthHuaweiId> =
     Either.catch { huaweiParseAuthenticationResult() }
+
+suspend fun Intent.huaweiParseAndVerifyAuthenticationResult(): AuthHuaweiId =
+    huaweiParseAuthenticationResult().verify().suspended()
+
+suspend fun Intent.huaweiParseAndVerifyAuthenticationResultMaybe(): Either<Throwable, AuthHuaweiId> =
+    huaweiParseAuthenticationResult().verify().attempt().suspended()
+
+fun huaweiSignOut() {
+    with(koin()) {
+        get<HuaweiIdAuthParamsHelper>()
+            .createParams()
+            .let { params ->
+                get<(HuaweiIdAuthParams) -> HuaweiIdAuthService>(NAMED_AUTH_SERVICE)(params).signOut()
+            }
+    }
+}
+
+suspend fun huaweiSignOutMaybe(): Either<Throwable, Unit> = Either.catch { huaweiSignOut() }

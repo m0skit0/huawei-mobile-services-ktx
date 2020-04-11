@@ -24,7 +24,7 @@ private suspend fun publicKeyMaybe(url: String): Either<Throwable, JWTCertificat
             .keys[0]
     }
 
-private suspend fun String.verifySignature(key: JWTCertificateKey): Either<Throwable, String> =
+private suspend fun String.verify(key: JWTCertificateKey): Either<Throwable, String> =
     Either.catch {
         apply {
             Jwts.parserBuilder().setSigningKey(key.n).build().parseClaimsJwt(this)

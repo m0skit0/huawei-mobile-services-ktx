@@ -10,9 +10,6 @@ import com.huawei.hms.support.hwid.service.HuaweiIdAuthService
 import org.m0skit0.android.huawei.account.di.AuthModuleProvider.NAMED_AUTH_SERVICE
 import org.m0skit0.android.huawei.core.utils.koin
 import org.m0skit0.android.huawei.core.utils.suspendUntilCompletion
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 fun huaweiSignInIntent(): Intent =
     with(koin()) {
@@ -46,10 +43,10 @@ suspend fun Intent.huaweiParseAuthenticationResult(): AuthHuaweiId =
 suspend fun Intent.huaweiParseAuthenticationResultMaybe(): Either<Throwable, AuthHuaweiId> =
     Either.catch { huaweiParseAuthenticationResult() }
 
-suspend fun Intent.huaweiParseAndVerifyAuthenticationResult(): AuthHuaweiId =
+suspend fun Intent.huaweiVerifyAndParseAuthenticationResult(): AuthHuaweiId =
     huaweiParseAuthenticationResult().verify().suspended()
 
-suspend fun Intent.huaweiParseAndVerifyAuthenticationResultMaybe(): Either<Throwable, AuthHuaweiId> =
+suspend fun Intent.huaweiVerifyAndParseAuthenticationResultMaybe(): Either<Throwable, AuthHuaweiId> =
     huaweiParseAuthenticationResult().verify().attempt().suspended()
 
 fun huaweiSignOut() {
@@ -71,15 +68,8 @@ suspend fun huaweiSilentSignIn(): AuthHuaweiId =
             .let { params ->
                 get<(HuaweiIdAuthParams) -> HuaweiIdAuthService>(NAMED_AUTH_SERVICE)
                     .invoke(params)
-                    .silentSignIn().let { task ->
-                        suspendCoroutine { continuation ->
-                            task.addOnSuccessListener {
-                                continuation.resume(it)
-                            }.addOnFailureListener {
-                                continuation.resumeWithException(it)
-                            }
-                        }
-                    }
+                    .silentSignIn()
+                    .suspendUntilCompletion()
             }
     }
 

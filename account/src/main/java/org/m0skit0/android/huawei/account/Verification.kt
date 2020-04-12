@@ -34,7 +34,7 @@ internal suspend fun String.verify(key: JWTCertificateKey): Either<Throwable, St
         }
     }
 
-internal suspend fun AuthHuaweiId.verify(): IO<AuthHuaweiId> =
+suspend fun AuthHuaweiId.verify(): IO<AuthHuaweiId> =
     openIdConfigurationMaybe().flatMap { openIdConfiguration ->
         publicKeyMaybe(openIdConfiguration.jwks_uri)
     }.map { jwtCertificateKey ->

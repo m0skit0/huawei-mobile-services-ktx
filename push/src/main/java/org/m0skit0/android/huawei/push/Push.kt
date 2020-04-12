@@ -7,7 +7,7 @@ import org.m0skit0.android.huawei.core.hms.huaweiDeregisterHMSTokenMaybe
 import org.m0skit0.android.huawei.core.hms.huaweiHMSToken
 import org.m0skit0.android.huawei.core.hms.huaweiHMSTokenMaybe
 import org.m0skit0.android.huawei.core.utils.koin
-import org.m0skit0.android.huawei.core.utils.suspendCoroutineUntilCompletion
+import org.m0skit0.android.huawei.core.utils.suspendUntilCompletion
 import org.m0skit0.android.huawei.core.utils.toUnit
 
 private const val TYPE = "HCM"
@@ -21,12 +21,12 @@ suspend fun huaweiDeregisterPushTokenMaybe(token: String): Either<Throwable, Str
     huaweiDeregisterHMSTokenMaybe(token, TYPE)
 
 suspend fun huaweiTurnOnPush(): Unit =
-    koin().get<HmsMessaging>().turnOnPush().suspendCoroutineUntilCompletion().toUnit()
+    koin().get<HmsMessaging>().turnOnPush().suspendUntilCompletion().toUnit()
 
 suspend fun huaweiTurnOnPushMaybe(): Either<Throwable, Unit> = Either.catch { huaweiTurnOnPush() }
 
 suspend fun huaweiTurnOffPush(): Unit =
-    koin().get<HmsMessaging>().turnOffPush().suspendCoroutineUntilCompletion().toUnit()
+    koin().get<HmsMessaging>().turnOffPush().suspendUntilCompletion().toUnit()
 
 suspend fun huaweiTurnOffPushMaybe(): Either<Throwable, Unit> = Either.catch { huaweiTurnOffPush() }
 

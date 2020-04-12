@@ -9,7 +9,7 @@ import com.huawei.hms.support.hwid.result.AuthHuaweiId
 import com.huawei.hms.support.hwid.service.HuaweiIdAuthService
 import org.m0skit0.android.huawei.account.di.AuthModuleProvider.NAMED_AUTH_SERVICE
 import org.m0skit0.android.huawei.core.utils.koin
-import org.m0skit0.android.huawei.core.utils.suspendCoroutineUntilCompletion
+import org.m0skit0.android.huawei.core.utils.suspendUntilCompletion
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -41,7 +41,7 @@ suspend fun huaweiSignInIntentWithCodeMaybe(): Either<Throwable, Intent> =
     Either.catch { huaweiSignInIntentWithCode() }
 
 suspend fun Intent.huaweiParseAuthenticationResult(): AuthHuaweiId =
-    HuaweiIdAuthManager.parseAuthResultFromIntent(this).suspendCoroutineUntilCompletion()
+    HuaweiIdAuthManager.parseAuthResultFromIntent(this).suspendUntilCompletion()
 
 suspend fun Intent.huaweiParseAuthenticationResultMaybe(): Either<Throwable, AuthHuaweiId> =
     Either.catch { huaweiParseAuthenticationResult() }

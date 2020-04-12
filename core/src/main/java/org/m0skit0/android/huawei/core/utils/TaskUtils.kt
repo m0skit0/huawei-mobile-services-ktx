@@ -18,7 +18,7 @@ suspend inline fun <T> Task<T>.suspendUntilCompletion(): T =
 
 suspend inline fun <T> Task<T>.suspendUntilCompletionMaybe(): Either<Throwable, T> =
     Either.catch {
-        suspendCoroutine { continuation ->
+        suspendCoroutine<T> { continuation ->
             addOnCompleteListener {
                 continuation.resume(it.result)
             }.addOnFailureListener {

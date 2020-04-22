@@ -1,0 +1,20 @@
+apply plugin: 'maven-publish'
+
+afterEvaluate {
+    publishing {
+        publications {
+            debug(MavenPublication) {
+                groupId = 'org.m0skit0.android.huawei'
+                artifactId = 'core'
+                version = "$coreVersion-debug"
+                from components.debug
+            }
+            release(MavenPublication) {
+                groupId = 'org.m0skit0.android.huawei'
+                artifactId = 'core'
+                version = coreVersion
+                from components.release
+            }
+        }
+    }
+}

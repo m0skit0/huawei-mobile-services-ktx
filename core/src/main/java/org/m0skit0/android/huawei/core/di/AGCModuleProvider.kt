@@ -12,9 +12,9 @@ internal object AGCModuleProvider : KoinModuleProvider, KoinComponent {
 
     override fun module(): Module = module {
 
-        factory<AGConnectServicesConfig> { AGConnectServicesConfig.fromContext(get()) }
+        factory<AGConnectServicesConfig>(override = true) { AGConnectServicesConfig.fromContext(get()) }
 
-        single(NAMED_HUAWEI_APP_ID) {
+        single(NAMED_HUAWEI_APP_ID, override = true) {
             get<AGConnectServicesConfig>().getString("client/app_id")
         }
     }

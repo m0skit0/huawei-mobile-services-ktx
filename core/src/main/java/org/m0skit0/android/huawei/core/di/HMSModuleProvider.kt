@@ -7,6 +7,6 @@ import org.koin.dsl.module
 internal object HMSModuleProvider : KoinModuleProvider {
 
     override fun module(): Module = module {
-        factory<HmsInstanceId> { HmsInstanceId.getInstance(get()) }
+        factory<HmsInstanceId>(override = true) { HmsInstanceId.getInstance(get()) }
     }
 }

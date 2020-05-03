@@ -1,3 +1,4 @@
 /build
 *.jks
 signing.gradle
+agconnect-services.json

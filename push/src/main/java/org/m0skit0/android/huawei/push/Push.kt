@@ -29,4 +29,3 @@ suspend fun huaweiTurnOffPush(): Unit =
     koin().get<HmsMessaging>().turnOffPush().suspendUntilCompletion().toUnit()
 
 suspend fun huaweiTurnOffPushMaybe(): Either<Throwable, Unit> = Either.catch { huaweiTurnOffPush() }
-

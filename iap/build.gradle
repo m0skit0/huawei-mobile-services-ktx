@@ -15,8 +15,8 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation "com.huawei.hms:iap:$hmsVersion"
+    api project(':core')
+    api "com.huawei.hms:iap:$hmsVersion"
 
     testImplementation 'junit:junit:4.12'
 }

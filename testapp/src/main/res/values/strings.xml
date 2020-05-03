@@ -8,4 +8,5 @@
     <string name="hcm_token_label">HCM Token</string>
     <string name="hcm_data_label">HCM Data</string>
     <string name="empty">EMPTY</string>
+    <string name="iap_not_available">IAP not available</string>
 </resources>

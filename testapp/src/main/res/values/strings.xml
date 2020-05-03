@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TestApp</string>
+    <string name="ads_demo_button">Ads Demo</string>
+    <string name="account_demo_button">Account Demo</string>
+    <string name="iap_demo_button">IAP Demo</string>
+    <string name="maps_demo_button">Maps Demo</string>
+    <string name="push_demo_button">Push Demo</string>
 </resources>

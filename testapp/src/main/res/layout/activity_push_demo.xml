@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/push_activity_layout_height"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/hcmTokenLabel"
+        android:layout_width="@dimen/push_activity_text_width"
+        android:layout_height="@dimen/push_activity_text_height"
+        android:text="@string/hcm_token_label"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hcmTokenValue"
+        android:layout_width="@dimen/push_activity_text_width"
+        android:layout_height="@dimen/push_activity_text_height"
+        android:ellipsize="end"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@id/hcmTokenLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/hcmTokenLabel"
+        app:layout_constraintTop_toTopOf="@id/hcmTokenLabel"
+        tools:text="SomeSuperUberMegaGigaVeryLongTokenValue" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/hcmDataLabel"
+        android:layout_width="@dimen/push_activity_text_width"
+        android:layout_height="@dimen/push_activity_text_height"
+        android:text="@string/hcm_data_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hcmTokenLabel" />
+
+    <TextView
+        android:id="@+id/hcmDataValue"
+        android:layout_width="@dimen/push_activity_text_width"
+        android:layout_height="@dimen/push_activity_text_height"
+        android:ellipsize="end"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@id/hcmDataLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/hcmDataLabel"
+        app:layout_constraintTop_toTopOf="@id/hcmDataLabel"
+        tools:text="ola ke ase" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

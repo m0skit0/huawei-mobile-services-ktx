@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">TestApp</string>
+    <string name="app_name">Huawei Mobile Services Kotlin Wrapper Demo</string>
     <string name="ads_demo_button">Ads Demo</string>
     <string name="account_demo_button">Account Demo</string>
     <string name="iap_demo_button">IAP Demo</string>
     <string name="maps_demo_button">Maps Demo</string>
     <string name="push_demo_button">Push Demo</string>
+    <string name="hcm_token_label">HCM Token</string>
+    <string name="hcm_data_label">HCM Data</string>
+    <string name="empty">EMPTY</string>
 </resources>

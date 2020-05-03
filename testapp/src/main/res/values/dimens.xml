@@ -2,4 +2,8 @@
 <resources>
     <dimen name="main_activity_button_width">200dp</dimen>
     <dimen name="main_activity_layout_height">350dp</dimen>
+
+    <dimen name="push_activity_layout_height">200dp</dimen>
+    <dimen name="push_activity_text_width">100dp</dimen>
+    <dimen name="push_activity_text_height">20dp</dimen>
 </resources>

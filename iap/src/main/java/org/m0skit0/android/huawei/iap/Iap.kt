@@ -8,6 +8,9 @@ import com.huawei.hms.iap.entity.*
 import org.m0skit0.android.huawei.core.utils.koin
 import org.m0skit0.android.huawei.core.utils.suspendUntilCompletion
 import org.m0skit0.android.huawei.core.utils.suspendUntilCompletionMaybe
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 suspend fun huaweiIsIAPEnvironmentReady(): IsEnvReadyResult =
     isEnvReady().suspendUntilCompletion()
@@ -31,6 +34,19 @@ suspend fun PurchaseIntentReq.purchase(): PurchaseIntentResult =
 
 suspend fun PurchaseIntentReq.purchaseMaybe(): Either<Throwable, PurchaseIntentResult> =
     createPurchaseIntent().suspendUntilCompletionMaybe()
+
+suspend fun PurchaseIntentResult.purchase(): PurchaseResultInfo =
+    suspendCoroutine { continuation ->
+        if (status.hasResolution()) {
+            HuaweiIapBridgeActivity.start(status, {
+                continuation.resumeWithException(this)
+            }) {
+                continuation.resume(this)
+            }
+        } else {
+            continuation.resumeWithException(HuaweiIapFailed(status.statusCode))
+        }
+    }
 
 private fun PurchaseIntentReq.createPurchaseIntent(): Task<PurchaseIntentResult> =
     koin().get<IapClient>().createPurchaseIntent(this)

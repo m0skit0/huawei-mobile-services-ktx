@@ -48,6 +48,9 @@ suspend fun PurchaseIntentResult.purchase(): PurchaseResultInfo =
         }
     }
 
+suspend fun PurchaseIntentResult.purchaseMaybe(): Either<Throwable, PurchaseResultInfo> =
+    Either.catch { purchase() }
+
 private fun PurchaseIntentReq.createPurchaseIntent(): Task<PurchaseIntentResult> =
     koin().get<IapClient>().createPurchaseIntent(this)
 

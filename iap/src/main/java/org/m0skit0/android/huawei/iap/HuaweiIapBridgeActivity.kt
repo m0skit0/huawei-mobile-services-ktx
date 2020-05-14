@@ -44,7 +44,7 @@ class HuaweiIapBridgeActivity : Activity() {
         private lateinit var onSuccess: PurchaseResultInfo.() -> Unit
         private lateinit var onFailure: Throwable.() -> Unit
 
-        internal fun start(status: Status, onFailure: Throwable.() -> Unit, onSuccess: PurchaseResultInfo.() -> Unit) {
+        fun start(status: Status, onFailure: Throwable.() -> Unit, onSuccess: PurchaseResultInfo.() -> Unit) {
             HuaweiIapBridgeActivity.status = status
             HuaweiIapBridgeActivity.onSuccess = onSuccess
             HuaweiIapBridgeActivity.onFailure = onFailure

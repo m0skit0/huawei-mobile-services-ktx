@@ -1,6 +1,7 @@
 package org.m0skit0.android.huawei.testapp.demos
 
 import android.os.Bundle
+import com.huawei.hms.iap.entity.ProductInfoReq
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +19,10 @@ class IapDemoActivity : ToastLogActivity(), CoroutineScope by CoroutineScope(Dis
         launch {
             huaweiIsIAPEnvironmentReadyMaybe().map { isEnvReady ->
                 if (isEnvReady.returnCode == 0) {
-
+                    ProductInfoReq().apply {
+                        productIds = listOf()
+                        priceType = 0
+                    }
                 }
             }
         }

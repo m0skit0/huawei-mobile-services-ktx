@@ -19,7 +19,7 @@
         <activity android:name=".demos.IapDemoActivity" />
 
         <service
-            android:name=".demos.PushMessageService"
+            android:name="org.m0skit0.android.huawei.push.HuaweiPushMessageService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />

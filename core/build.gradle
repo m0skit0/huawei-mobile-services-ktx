@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-ext.coreVersion = "$hmsVersion-alpha-01"
+ext.coreVersion = "1.0-alpha-01"
 
 android {
     compileSdkVersion 29
@@ -18,15 +18,12 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
-    api "com.huawei.hms:base:$hmsVersion"
-    api "com.huawei.hms:opendevice:$hmsVersion"
+    api "com.huawei.hms:base:4.0.1.300"
+    api "com.huawei.hms:opendevice:4.0.1.300"
 
-    api 'org.koin:koin-android:2.1.5'
-    api 'io.arrow-kt:arrow-fx:0.10.4'
-
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
 }
 
 apply from: 'publishing.gradle'

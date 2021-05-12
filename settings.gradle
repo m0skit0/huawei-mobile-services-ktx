@@ -1,5 +1,5 @@
 rootProject.name='Huawei Mobile Services Kotlin'
-include ':core'
+include ':base'
 //include ':push'
 //include ':account'
 //include ':maps'

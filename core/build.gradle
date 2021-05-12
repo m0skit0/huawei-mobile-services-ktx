@@ -20,7 +20,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
-    api "com.huawei.hms:base:4.0.1.300"
+    api "com.huawei.hms:base:5.0.4.301"
     api "com.huawei.hms:opendevice:4.0.1.300"
 
     testImplementation 'junit:junit:4.13.1'

@@ -5,12 +5,21 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-suspend inline fun <T> Task<T>.suspendUntilCompletion(): T =
+suspend fun <T> Task<T>.suspendForCompletion(): Task<T> =
+    suspendCancellableCoroutine {
+        addOnCompleteListener(it::resume)
+        .addOnFailureListener(it::resumeWithException)
+    }
+
+suspend fun <T> Task<T>.suspendForSuccess(failure: () -> Unit = {}): T =
     suspendCancellableCoroutine { continuation ->
         addOnCompleteListener {
-            continuation.resume(it.result)
+            ifSuccessful(continuation::resume, failure)
         }
-        .addOnFailureListener {
-            continuation.resumeWithException(it)
-        }
+        .addOnFailureListener(continuation::resumeWithException)
     }
+
+inline fun <T> Task<T>.ifSuccessful(block: (T) -> Unit, elseBlock: () -> Unit = {}) {
+    if (isComplete && isSuccessful) result?.let(block)
+    else elseBlock()
+}

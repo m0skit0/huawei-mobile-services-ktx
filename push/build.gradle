@@ -1,22 +1,23 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+
+ext.pushVersion = "5.1.1.301-alpha-01"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.2"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
-        versionName "$hmsVersion-1"
+        versionName pushVersion
     }
 }
 
 dependencies {
-    api project(':core')
-    api "com.huawei.hms:push:$hmsVersion"
+    api project(':base')
+    api "com.huawei.hms:push:5.1.1.301"
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
 }

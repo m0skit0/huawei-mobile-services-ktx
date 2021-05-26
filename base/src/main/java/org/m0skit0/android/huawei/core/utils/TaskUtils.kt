@@ -11,7 +11,7 @@ suspend fun <T> Task<T>.suspendForCompletion(): Task<T> =
         .addOnFailureListener(it::resumeWithException)
     }
 
-suspend fun <T> Task<T>.suspendForSuccess(failure: () -> Unit = {}): T =
+suspend inline fun <T> Task<T>.suspendForSuccess(crossinline failure: () -> Unit = {}): T =
     suspendCancellableCoroutine { continuation ->
         addOnCompleteListener {
             ifSuccessful(continuation::resume, failure)
